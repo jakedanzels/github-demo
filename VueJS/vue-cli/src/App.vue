@@ -1,27 +1,30 @@
 <template>
     <div class="container">
         <app-header></app-header>
+        <hr>
         <div class="row">
             <servers></servers>
             <app-server-details></app-server-details>
         </div>
+        <hr>
         <app-footer></app-footer>
     </div>
 </template>
 
 <script>
-import Header from './components/Shared/Header.vue'
-import Footer from './components/Shared/Footer.vue'
-import Servers from './components/Server/Servers.vue'
-import ServerDetails from './components/Server/ServerDetails.vue'
-export default {
-    components: {
-      appFooter: Footer,//this works too, without needing to change html
-      'app-header': Header,
-      Servers, //and this, but you have to lose the app- prefix in html, could lead to problems with uniqueness
-      'app-server-details': ServerDetails
+    import Header from './components/Shared/Header.vue';
+    import Footer from './components/Shared/Footer.vue';
+    import Servers from './components/Server/Servers.vue';
+    import ServerDetails from './components/Server/ServerDetails.vue';
+
+    export default {
+        components: {
+            appHeader: Header,
+            Servers,
+            'app-server-details': ServerDetails,
+            'app-footer': Footer
+        }
     }
-}
 </script>
 
 <style>
