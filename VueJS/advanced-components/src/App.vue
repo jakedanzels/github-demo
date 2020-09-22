@@ -27,6 +27,9 @@
         },
          methods: {
             addNewQuote(data) {
+                if(this.quotes.length >= this.maxQuotes){
+                    return alert(`${this.maxQuotes} is the maximum number of quotes - Delete some!`)
+                }
                 this.quotes.push(data);
             },
             deleteQuote(index) {
