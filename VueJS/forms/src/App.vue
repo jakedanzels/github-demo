@@ -112,28 +112,31 @@
             </div>
         </form>
         <hr>
-        <div class="row" v-if="isSubmitted">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>Your Data</h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>Mail: {{ userData.email }}</p>
-                        <p>Password: {{ userData.password }}</p>
-                        <p>Age: {{ userData.age }}</p>
-                        <p style="white-space: pre">Message: {{ message }}</p>
-                        <p><strong>Send Mail?</strong></p>
-                        <ul>
-                            <li v-for="item in sendMail" :key="item">{{ item }}</li>
-                        </ul>
-                        <p>Gender: {{ gender }}</p>
-                        <p>Priority: {{ selectedPriority }}</p>
-                        <p>Switched: {{ dataSwitch }}</p>
+        <!-- <transition name="fade"> -->
+        <transition name="slide" type="transition">
+            <div class="row" v-show="isSubmitted">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Your Data</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>Mail: {{ userData.email }}</p>
+                            <p>Password: {{ userData.password }}</p>
+                            <p>Age: {{ userData.age }}</p>
+                            <p style="white-space: pre">Message: {{ message }}</p>
+                            <p><strong>Send Mail?</strong></p>
+                            <ul>
+                                <li v-for="item in sendMail" :key="item">{{ item }}</li>
+                            </ul>
+                            <p>Gender: {{ gender }}</p>
+                            <p>Priority: {{ selectedPriority }}</p>
+                            <p>Switched: {{ dataSwitch }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -158,7 +161,7 @@
         },
         methods: {
             submitted() {
-                this.isSubmitted = true;
+                this.isSubmitted = !this.isSubmitted;
             }
         },
         components: {
@@ -168,5 +171,59 @@
 </script>
 
 <style>
+    .fade-enter {
+        opacity: 0;
+    }
+
+    .fade-enter-active {
+        transition: opacity 1s;
+    }
+
+    .fade-leave {
+        /*opacity: 1;*/
+    }
+
+    .fade-leave-active {
+        transition: opacity 1s;
+        opacity: 0;
+    }
+
+    .slide-enter {
+        /* transform: translateY(20px); */
+        opacity: 0;
+    }
+
+    .slide-enter-active {
+        animation: slide-in 1s ease-out forwards;
+        transition: opacity .5s;
+    }
+
+    .slide-leave {
+        /*opacity: 1;*/
+    }
+
+    .slide-leave-active {
+        animation: slide-out 1s ease-out forwards;
+        transition: opacity 1s;
+        opacity: 0;
+    }
+
+    @keyframes slide-in {
+        from {
+            transform: translateY(20px);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slide-out {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(20px);
+        }
+    }
 
 </style>
