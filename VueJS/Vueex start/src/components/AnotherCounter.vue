@@ -1,7 +1,7 @@
 <template>
     <div>
-        <button class="btn btn-primary" @click="increment(20)">Increment</button>
-        <button class="btn btn-primary" @click="decrement(5)">Decrement</button>
+        <button class="btn btn-primary" @click="asyncIncrement({by: 2, delay:1000})">Increment</button>
+        <button class="btn btn-primary" @click="asyncDecrement({by: 2, delay:1000})">Decrement</button>
     </div>
 </template>
 
