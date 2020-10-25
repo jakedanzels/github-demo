@@ -5,7 +5,7 @@
     <h3><em>"That car in front is following us!"</em></h3>
     <img alt="Red Book logo" class="book" src="@/assets/book-coming-soon.png" height="200" width="480"
   title="Coming Soon!"
-  style="vertical-align:middle;margin:50px 0px;cursor:pointer">
+  style="vertical-align:middle;margin:50px 0px">
   </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.welcome{
+  text-align: center;
+}
 img.book {
   height: 50%;
   width: 50%;

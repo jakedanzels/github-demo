@@ -1,14 +1,14 @@
 <template>
-  <Welcome/>
+  <nav-bar/>
+  <router-view></router-view>
 </template>
 
 <script>
-import Welcome from './components/Welcome.vue'
-
+import NavBar from './components/nav/NavBar.vue';
 export default {
   name: 'App',
   components: {
-    Welcome
+    NavBar
   }
 }
 </script>
@@ -21,8 +21,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>
