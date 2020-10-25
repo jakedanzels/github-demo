@@ -1,10 +1,9 @@
 <template>
   <div class="welcome">
-    <h4>(Coming Soon)</h4>
     <h1>The <span class="red">Red</span> Book</h1>
     <h2>Things we wish we hadn't said</h2>
     <h3><em>"That car in front is following us!"</em></h3>
-    <img alt="Red Book logo" src="@/assets/logo.png" height="200" width="480"
+    <img alt="Red Book logo" class="book" src="@/assets/book-coming-soon.png" height="200" width="480"
   title="Coming Soon!"
   style="vertical-align:middle;margin:50px 0px;cursor:pointer">
   </div>
@@ -18,6 +17,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+img.book {
+  height: 50%;
+  width: 50%;
+}
 h3 {
   margin: 40px 0 0;
 }
