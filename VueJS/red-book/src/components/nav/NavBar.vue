@@ -9,10 +9,10 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/New">New</router-link>
+                    <router-link to="/New">Add New</router-link>
                 </li>
                 <li>
-                    <router-link to="/Random">Random</router-link>
+                    <router-link to="/Random">Random Entry</router-link>
                 </li>
                 <li>
                     <router-link to="/All">All</router-link>
