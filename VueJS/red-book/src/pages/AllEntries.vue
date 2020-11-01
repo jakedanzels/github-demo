@@ -1,7 +1,6 @@
 <template>
   <div class="all-entries">
     <h1><span class="red">All</span> Entries</h1>
-   <button @click="loadEntries">Load</button>
    <ul>
      <li v-for="entry in entries" :key="entry">
        <keep-alive>
@@ -43,6 +42,9 @@ export default {
         this.entries = results;
       });
     }
+  },
+  mounted() {
+    this.loadEntries();
   }
 }
 </script>

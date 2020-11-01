@@ -8,14 +8,20 @@
                     title="Welcome">
                     </router-link>
                 </li>
-                <li>
-                    <router-link to="/New">Add New</router-link>
+                <li v-if="loggedIn">
+                    <base-button @click="logout">Logout</base-button>
                 </li>
-                <li>
-                    <router-link to="/Random">Random Entry</router-link>
+                <li v-else>
+                    <router-link to="/auth">Login/Register</router-link>
                 </li>
-                <li>
-                    <router-link to="/All">All</router-link>
+                 <li v-if="loggedIn">
+                    <router-link to="/new">Add New</router-link>
+                </li>
+                <li v-if="loggedIn">
+                    <router-link to="/random">Random Entry</router-link>
+                </li>
+                <li v-if="loggedIn">
+                    <router-link to="/all">All</router-link>
                 </li>
             </ul>
         </nav>
@@ -23,6 +29,22 @@
     <hr>
   </div>
 </template>
+
+<script>
+export default {
+    computed: {
+        loggedIn() {
+            return this.$store.getters.isAuthenticated;
+        }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('logout');
+            this.$router.replace('/home');
+        }
+    }
+}
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
