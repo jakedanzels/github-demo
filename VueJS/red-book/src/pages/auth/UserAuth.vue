@@ -20,6 +20,7 @@
                 <p v-if="!formIsValid">Please enter a valid e-mail and password (at least 6 characters)</p>
                 <base-button>{{submitButtonCaption}}</base-button>
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{switchModeButtonCaption}}</base-button>
+                <p>Forgot Password? Tough shit, I haven't learned how to deal with that yet.</p>
             </form>
         </base-card>
     </div>

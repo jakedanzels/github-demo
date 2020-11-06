@@ -1,5 +1,8 @@
 <template>
   <div class="welcome">
+    <div v-if="autoLoggedOut">
+      <h1>Session Expired - You were Auto Logged Out</h1>
+    </div>
     <h1>The <span class="red">Red</span> Book</h1>
     <h2>Things we wish we hadn't said</h2>
     <h3><em>"That car in front is following us!"</em></h3>
@@ -13,6 +16,9 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.getters.isAuthenticated;
+    },
+    autoLoggedOut() {
+      return this.$store.getters.autoLoggedOut;
     }
   }
 }
