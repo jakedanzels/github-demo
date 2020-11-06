@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import firebase from "firebase/app";
 
 import router from './router.js';
 import store from './store/index.js';
@@ -8,6 +9,29 @@ import BaseButton from './components/ui/BaseButton.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';
 import BaseSpinner from './components/ui/BaseSpinner.vue';
 import BaseDialog from './components/ui/BaseDialog.vue';
+
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyAZIpIFTnZyc2WarqWxblqN5JGuJmC9LKQ",
+    authDomain: "the-red-book-jd.firebaseapp.com",
+    databaseURL: "https://the-red-book-jd.firebaseio.com",
+    projectId: "the-red-book-jd",
+    storageBucket: "the-red-book-jd.appspot.com",
+    messagingSenderId: "346921313959",
+    appId: "1:346921313959:web:f7b04e90216c8f16275d82",
+    measurementId: "G-SRF2LB9D67"
+  };
+  
+  // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+// fb.auth.onAuthStateChanged(user => {
+//     console.log('on Auth state changed')
+//     if(user) {
+//         console.log(user);
+//     }
+// });
 
 const app = createApp(App);
 app.use(router);

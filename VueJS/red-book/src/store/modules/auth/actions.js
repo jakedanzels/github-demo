@@ -1,4 +1,6 @@
 let timer;
+//  import firebase from "firebase/app";
+//  import "firebase/auth";
 
 export default {
     async login(context,payload) {
@@ -6,12 +8,34 @@ export default {
             ...payload,
             mode: 'login'
         });
+
+        // // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        // //     .then(function() {
+        //         return firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        //     // })
+        //     .catch(function(error) {
+        //         // Handle Errors here.
+        //         var errorCode = error.code;
+        //         var errorMessage = error.message;
+        //         console.log(errorCode);
+        //         const err = new Error(errorMessage);
+        //         throw err;
+        //     });
     },
     async signup(context,payload) {
         return context.dispatch('auth',{
             ...payload,
             mode: 'signup'
         });
+        // return firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        // .catch(function(error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     console.log(errorCode);
+        //     const err = new Error(errorMessage);
+        //     throw err;
+        //   });
     },
     async auth(context, payload) {
         const mode = payload.mode;
