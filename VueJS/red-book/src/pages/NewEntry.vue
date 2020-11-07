@@ -55,8 +55,8 @@ export default {
   methods: {
     async submitForm() {
       this.saveFeedback = null;
+      await this.$store.dispatch("refreshToken");
       const token = this.$store.getters.token;
-      console.log(token);
       await fetch(`https://the-red-book-jd.firebaseio.com/entries.json?auth=${token}`, {
           method: 'POST',
           headers: {

@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
-import firebase from "firebase/app";
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 import router from './router.js';
 import store from './store/index.js';
@@ -25,13 +26,28 @@ const firebaseConfig = {
   
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-//firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-// fb.auth.onAuthStateChanged(user => {
-//     console.log('on Auth state changed')
-//     if(user) {
-//         console.log(user);
-//     }
-// });
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+          unsubscribe();
+          resolve(user);
+      }, reject);
+  });
+};
+
+
+firebase.auth().onAuthStateChanged(user => {
+  store.commit("setUser", user);
+  if(user){
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      store.commit("setToken",idToken);
+    });
+  } else {
+    store.commit("setToken",null);
+  }
+});
 
 const app = createApp(App);
 app.use(router);

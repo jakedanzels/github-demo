@@ -15,9 +15,9 @@ export default {
       return this.$store.getters.autoLoggedOut;
     }
   },
-  created() {
-      this.$store.dispatch('tryLogin');
-  },
+  // created() {
+  //     this.$store.dispatch('tryLogin');
+  // },
   watch: {
     autoLoggedOut(curValue, oldValue) {
       if(curValue && curValue !== oldValue){
