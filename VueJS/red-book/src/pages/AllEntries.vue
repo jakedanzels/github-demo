@@ -12,8 +12,8 @@
     </ul>
     <input id="search" name="search" type="text" placeholder="Search" v-model="search"/>
    <ul>
-     <li v-for="item in entries" :key="item">
-       <entry :scene="item.entry.scene" :lines="item.entry.lines"></entry>
+     <li v-for="(entry,x) in entries" :key="x">
+       <entry :entry="entry.entry"></entry>
      </li>
    </ul>
   </div>
@@ -38,9 +38,8 @@ export default {
       /\w\S*/g,
       function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
     }
-  );
-}
   },
   computed: {
     entries(){
@@ -50,10 +49,12 @@ export default {
         var items = this.$store.getters.allEntries;
         var results = [];
         for(let i = 0; i < items.length; i++) {
-          if(items[i].entry.scene.toLowerCase().includes(query)){
-            results.push(items[i]);
-            continue;
-          }      
+          if(items[i].entry.scene) {
+            if(items[i].entry.scene.toLowerCase().includes(query) && items[i].entry.scene){
+              results.push(items[i]);
+              continue;
+            } 
+          }  
           for(let j = 0; j < items[i].entry.lines.length; j++){
             if(items[i].entry.lines[j].who.toLowerCase().includes(query) ||
               items[i].entry.lines[j].what.toLowerCase().includes(query)){
@@ -87,8 +88,8 @@ export default {
   },
   created() {
       this.$store.dispatch('loadEntries');
-      //console.log(this.$store.getters.allEntries)
-  },watch: {
+  },
+  watch: {
     selectedPerson() {
       if(this.selectedPerson){
         this.search = null;

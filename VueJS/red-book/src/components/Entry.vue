@@ -1,10 +1,10 @@
 <template>
     <ul class="nostyle">
-        <li v-if="scene"><em>{{scene}}</em></li>
-        <li v-for="line in lines" :key="line">
+        <li v-if="entry.scene"><em>{{entry.scene}}{{entry.scene.includes('...') ? '' : '...'}}</em></li>
+        <li v-for="(line,x) in entry.lines" :key="x">
             <span v-if="line.who"><strong>{{line.who}} - </strong></span>
             <span v-if="line.who">{{line.what}}</span>
-            <span v-else><em>{{line.what}}</em></span>
+            <span v-else><em>{{line.what}}{{line.what.includes('...') ? '' : '...'}}</em></span>
         </li>
         <br>
     </ul>
@@ -13,22 +13,22 @@
 <script>
 export default {
     props: {
-        scene: String,
-        lines: Array
+        entry: {
+            id: String,
+            scene: String,
+            lines: Array
+        }
     }
 }
 </script>
 
 <style scoped>
-italic {
-    font-style: italic;
-}
 
 li {
   list-style-type: none;
 }
 
 ul {
-  padding-left: 0;
+  padding-left: 10px;
 }
 </style>

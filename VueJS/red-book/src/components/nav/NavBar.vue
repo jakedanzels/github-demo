@@ -4,7 +4,7 @@
         <nav>
             <ul>
                 <li>
-                    <router-link to="/"><img alt="Red Book logo" class="logo" src="@/assets/logo.png" height="30" width="60"
+                    <router-link to="/"><img alt="Red Book logo" class="logo" src="@/assets/red-book-cto.png" height="30" width="60"
                     title="Welcome">
                     </router-link>
                 </li>
