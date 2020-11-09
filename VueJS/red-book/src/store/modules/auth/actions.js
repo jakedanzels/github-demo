@@ -3,7 +3,7 @@ import "firebase/auth";
 
 export default {
     async login(context,payload) {
-        return firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+        return await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -12,13 +12,34 @@ export default {
         });
     },
     async signup(context,payload) {
-        return firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        var signup = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
             const err = new Error(errorMessage,errorCode);
             throw err;
         });
+
+        var user = firebase.auth().currentUser;
+
+        user.updateProfile({
+          displayName: payload.name,
+        })
+        .catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            const err = new Error(errorMessage,errorCode);
+            throw err;
+        });
+
+        user.sendEmailVerification()
+        .catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            const err = new Error(errorMessage,errorCode);
+            throw err;
+        });
+        return signup
     },
     logout(context){
         firebase.auth().signOut()
@@ -29,9 +50,15 @@ export default {
         throw error;
         });
     },
-    autoLogout(context) {
-        context.dispatch('logout');
-        context.commit('setAutoLoggedOut');
+    async forgotPassword(context, payload) {        
+        var res = await firebase.auth().sendPasswordResetEmail(payload)
+        .catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            const err = new Error(errorMessage,errorCode);
+            throw err;
+        });
+        return res;
     },
     async refreshToken(context) {
         firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {

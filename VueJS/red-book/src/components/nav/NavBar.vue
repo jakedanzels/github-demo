@@ -26,7 +26,6 @@
             </ul>
         </nav>
     </header>
-    <hr>
   </div>
 </template>
 

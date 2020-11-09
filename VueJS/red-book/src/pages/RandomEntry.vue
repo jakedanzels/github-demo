@@ -92,8 +92,8 @@ body {
 ul,
 li
  {
-    width: 100%;
-    max-width: 90%;
+    width: 90%;
+    max-width: 85%;
     height: 100%;
     max-height: 100%;
     line-height: 30px;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <base-dialog :show="!!error" title="The Red Book" @close="handleError">
+        <base-dialog :show="!!error" title="An error occurred" @close="handleError">
             <p>{{ error }}</p>
         </base-dialog>
         <base-dialog :show="isLoading" title="Authenticating" fixed>
@@ -9,25 +9,32 @@
         <base-card>
             <form @submit.prevent="submitForm">
                 <h1>{{header}}</h1>
-        
-                <div v-if="mode!=='login'"  class="form-control">
-                <label class="" for="name">First Name</label>
-                <input type="text" id="name" v-model.trim="name" required /> 
-                </div> 
+                 <fieldset>
+                <!-- Section 1 -->
+                <legend><span class="section">1</span>Your Basic Info</legend>
+                <label class="" for="name">Name:</label>
+                <input type="text" name="name" value="" id="name" required />
+
+                <label class="" for="email">Email:</label>
+                <input type="email" name="email" value="" id="email" required />
+
+                <label for="password">password:</label>
+                <input type="password" name="password" value="" id="password" required />
+                </fieldset>
+
+                
                 <div class="form-control">
                     <label for="email">Email</label>
-                    <input type="email" id="email" v-model.trim="email" required/>
+                    <input type="email" id="email" v-model.trim="email"/>
                 </div>
                 <div class="form-control">
                     <label for="password">Password</label>
-                    <input type="password" id="password" v-model.trim="password" required/>
-                </div>
-                <div v-if="mode === 'login'">
-                    <p class="forgot" @click="forgotPassword">I forgot my Password</p>
+                    <input type="password" id="password" v-model.trim="password"/>
                 </div> 
                 <p v-if="!formIsValid">Please enter a valid e-mail and password (at least 6 characters)</p>
                 <base-button>{{submitButtonCaption}}</base-button>
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{switchModeButtonCaption}}</base-button>
+                <p>Forgot Password? Tough shit, I haven't learned how to deal with that yet.</p>
             </form>
         </base-card>
     </div>
@@ -37,7 +44,6 @@
 export default {
     data() {
         return {
-            name: '',
             email: '',
             password: '',
             formIsValid: true,
@@ -81,8 +87,7 @@ export default {
 
                 const actionPayload = {
                     email: this.email,
-                    password: this.password,
-                    name: this.name
+                    password: this.password
                 };
 
                 if (this.mode === 'login'){
@@ -96,18 +101,6 @@ export default {
             }
             
             this.isLoading = false;
-        },
-        async forgotPassword() {
-            if(!this.email){
-                this.error = "Enter your e-mail address first!"
-                return;
-            }
-          try{
-                await this.$store.dispatch('forgotPassword', this.email);
-                this.error = "Check your inbox for a password reset e-mail!"
-            } catch (err) {
-                this.error = err.message || 'Password Reset Error';
-            }
         },
         switchAuthMode() {
             if(this.mode === 'login') {
@@ -125,17 +118,6 @@ export default {
 
 
 <style scoped>
-
-.forgot {
-  text-decoration: underline;
-  cursor: pointer;
-}
-.forgot:hover {
-    color: blue;
-    text-decoration-color: blue;
-    font-weight: bold;
-}
-
 form {
   margin: 1rem;
   padding: 1rem;

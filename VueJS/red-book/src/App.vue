@@ -1,14 +1,22 @@
 <template>
-  <nav-bar/>
+  <nav-bar></nav-bar>
+  <transition>
   <router-view></router-view>
+  </transition>
+  <my-footer></my-footer>
 </template>
 
 <script>
+
+
 import NavBar from './components/nav/NavBar.vue';
+import myFooter from './components/Footer.vue';
+
 export default {
   name: 'App',
   components: {
-    NavBar
+    NavBar,
+    myFooter
   },
    created() {
     this.$store.dispatch('loadEntries');
