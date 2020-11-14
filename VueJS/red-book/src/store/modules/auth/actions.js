@@ -11,6 +11,15 @@ export default {
             throw err;
         });
     },
+    async guestLogin(){
+        return await firebase.auth().signInAnonymously()
+        .catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            const err = new Error(errorMessage, errorCode);
+            throw err;
+          });
+    },
     async signup(context,payload) {
         var signup = await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .catch(function(error) {

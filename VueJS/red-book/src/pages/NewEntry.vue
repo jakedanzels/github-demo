@@ -1,7 +1,10 @@
 <template>
   <base-card>
     <form @submit.prevent="submitForm">
-      <div class="new-entry">
+      <h1 v-if="isGuest">
+        Guests cannot add entries, sorry.
+      </h1>
+      <div v-else class="new-entry">
         <h1><span class="red">New</span> Entry</h1>
         <div class="form-control">
           <label for="scene">Scene</label>
@@ -23,10 +26,10 @@
 
           <!-- <entry-line v-model="EntryLine.who" v-model:whatSaid="EntryLine.what"></entry-line> -->
         </div>
-        <button type="button" class="sub" @click="addLine">Add Line</button>
+        <button type="button" class="sub" @click="addLine" :disabled="isGuest">Add Line</button>
       </div>
       <hr>
-      <div>
+      <div v-if="!isGuest">
         <base-button>Save</base-button>
         <transition>
           <h3 v-if="saveFeedback">{{saveFeedback}}</h3>
@@ -51,6 +54,11 @@ export default {
       },
       saveFeedback: null
     };
+  },
+  computed: {
+    isGuest() {
+      return this.$store.getters.isGuest;
+    }
   },
   methods: {
     async submitForm() {

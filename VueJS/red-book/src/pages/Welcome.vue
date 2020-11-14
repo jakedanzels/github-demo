@@ -23,9 +23,12 @@ export default {
     welcomeMessage() {
       var displayName = '';
       if(this.loggedIn){
-          displayName = this.$store.getters.user.displayName
+          displayName = this.$store.getters.user.displayName;
+          return displayName ? `Hello ${displayName}` : 'Hello Guest';
+      }else{
+        return null;
       }
-      return displayName ? `Hello ${displayName}` : '';
+      
     }
   }
 }

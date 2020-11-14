@@ -9,7 +9,7 @@
         <base-card>
             <form @submit.prevent="submitForm">
                 <h1>{{header}}</h1>
-        
+                <h5 v-if="mode!=='login'">You may be met with an error if on Mobile ¯\_(ツ)_/¯</h5>
                 <div v-if="mode!=='login'"  class="form-control">
                 <label class="" for="name">First Name</label>
                 <input type="text" id="name" v-model.trim="name" required /> 
@@ -28,6 +28,8 @@
                 <p v-if="!formIsValid">Please enter a valid e-mail and password (at least 6 characters)</p>
                 <base-button>{{submitButtonCaption}}</base-button>
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{switchModeButtonCaption}}</base-button>
+                <hr>
+                <base-button type="button" @click="guestLogin">Guest Login</base-button>
             </form>
         </base-card>
     </div>
@@ -94,7 +96,6 @@ export default {
             } catch (err) {
                 this.error = err.message || 'Failed to authenticate...';
             }
-            
             this.isLoading = false;
         },
         async forgotPassword() {
@@ -118,6 +119,14 @@ export default {
         },
         handleError() {
             this.error = null;
+        },
+        async guestLogin() {
+            try{
+                await this.$store.dispatch('guestLogin');
+                this.$router.replace('/home');
+            } catch (err) {
+                this.error = err.message || 'Guest Login Error';
+            }
         }
     }
 }
