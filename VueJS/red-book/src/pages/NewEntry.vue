@@ -31,7 +31,7 @@
       <hr>
       <div v-if="!isGuest">
         <base-button>Save</base-button>
-        <transition>
+        <transition name="fade" mode="out-in">
           <h3 v-if="saveFeedback">{{saveFeedback}}</h3>
         </transition>
       </div>

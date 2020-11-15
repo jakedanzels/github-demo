@@ -20,5 +20,8 @@ export default {
           }
         context.commit("setAllEntries",results);
         });
+      },
+      randomEntryHintSeen(context) {
+        context.commit("randomEntryHintSeen");
       }
 }

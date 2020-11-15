@@ -5,7 +5,8 @@ import getters from './getters.js';
 export default {
   state() {
     return {
-      allEntries: []
+      allEntries: [],
+      randomEntryHintSeen: false
     };
   },
   mutations,

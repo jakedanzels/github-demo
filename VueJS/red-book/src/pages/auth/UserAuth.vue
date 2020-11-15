@@ -30,6 +30,7 @@
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{switchModeButtonCaption}}</base-button>
                 <hr>
                 <base-button type="button" @click="guestLogin">Guest Login</base-button>
+                <h4>(Guests cannot Add Entries)</h4>
             </form>
         </base-card>
     </div>

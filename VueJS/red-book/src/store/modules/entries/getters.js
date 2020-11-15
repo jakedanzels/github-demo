@@ -4,5 +4,8 @@ export default {
     },
     selectedEntry(state) {
         return state.selectedEntry;
+    },
+    randomEntryHintSeen(state) {
+        return state.randomEntryHintSeen;
     }
 };

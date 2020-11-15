@@ -14,7 +14,7 @@
                 <li v-else>
                     <router-link to="/auth">Login/Register</router-link>
                 </li>
-                 <li v-if="loggedIn">
+                 <li v-if="loggedIn && !isGuest">
                     <router-link to="/new">Add New</router-link>
                 </li>
                 <li v-if="loggedIn">
@@ -34,6 +34,9 @@ export default {
     computed: {
         loggedIn() {
             return this.$store.getters.isAuthenticated;
+        },
+        isGuest() {
+            return this.$store.getters.isGuest;
         }
     },
     methods: {

@@ -1,7 +1,12 @@
 <template>
-  <div class="paper">
-    <h1 @click="getRandomEntry" title="Click for another one" ><span class="red">Random</span> Entry</h1>
-    <entry class="paper-content" v-if="!isLoading" :entry="entry"></entry>
+  <div @click="getRandomEntry" class="randomEntry">
+    <transition name="fade" mode="out-in">
+      <h3 @click="getRandomEntry" v-if="hint">{{hint}}</h3>
+    </transition>
+    <div class="paper">
+      <h1 title="Click for another one"><span class="red">Random</span> Entry</h1>
+      <entry class="paper-content" v-if="!isLoading" :entry="entry"></entry>
+    </div>
   </div>
 </template>
 
@@ -17,14 +22,15 @@ export default {
             lines: Array
       }
       , isLoading: true
+      , hint: ''
     }
   },
   components: {
-    //UnderConstruction
     Entry
   },
   methods: {
     getRandomEntry() {
+      this.hint = null;
       var entries = this.$store.getters.allEntries;
       this.entry = entries[Math.floor(Math.random() * entries.length)].entry;
     }
@@ -32,6 +38,17 @@ export default {
   async mounted() {
     this.getRandomEntry();
     this.isLoading = false;
+    var hintSeen = this.$store.getters.randomEntryHintSeen;
+    this.hint = hintSeen ? null : 'Hint: Click or Tap anywhere to see another Random Entry'
+    if(!hintSeen) this.$store.dispatch('randomEntryHintSeen');
+  },
+  watch: {
+    hint() {
+        if(this.hint)
+        setTimeout(() => {
+          this.hint = null;
+        },3000)
+      }
   }
 }
 </script>
@@ -42,6 +59,9 @@ export default {
 h1 {
   cursor: pointer;
   margin-left: 70px;
+}
+h3 {
+  margin-left: 75px;
 }
 
 h1:hover {
@@ -62,7 +82,7 @@ body {
     position: relative;
     width: 90%;
     max-width: 800px;
-    min-width: 400px;
+    min-width: 375px;
     height: 480px;
     margin: 0 auto;
     background: #fafafa;
@@ -93,7 +113,7 @@ ul,
 li
  {
     width: 90%;
-    max-width: 85%;
+    max-width: 80%;
     height: 100%;
     max-height: 100%;
     line-height: 30px;

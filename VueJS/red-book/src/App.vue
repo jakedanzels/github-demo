@@ -1,7 +1,7 @@
 <template>
   <nav-bar></nav-bar>
   <router-view v-slot="slotProps">
-    <transition name="route" mode="out-in">
+    <transition name="fade" mode="out-in">
       <component :is="slotProps.Component"></component>
     </transition>
   </router-view>
@@ -43,24 +43,24 @@ body {
   margin: 0;
 }
 
-.route-enter-from,
-.route-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
 
-.route-enter-active {
+.fade-enter-active {
   /* animation: slide-scale 0.4s ease-out; */
  transition: opacity 0.5s ease-out;
 }
 
-.route-leave-active {
+.fade-leave-active {
   /* animation: slide-scale 0.4s ease-in; */
   transition: opacity 0.5s ease-in;
 }
 
-.route-enter-to,
-.route-leave-from {
+.fade-enter-to,
+.fade-leave-from{
   opacity: 1;
 }
 </style>

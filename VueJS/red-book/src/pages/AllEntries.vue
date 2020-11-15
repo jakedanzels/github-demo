@@ -77,7 +77,10 @@ export default {
             person = this.toTitleCase(items[i].entry.lines[j].who).trim();
             if( person.length === 0 || 
                 person.includes('(') || 
+                person === 'Ray Newton' ||
                 person === 'Manager') continue;
+                //now just the first name
+                person = person.split(' ')[0];
             if(!results.includes(person)){
               results.push(person);
             }
@@ -114,7 +117,7 @@ ul {
 }
 li {
     padding-left: 10px;
-    display: inline;
+    display: inline-block;
     cursor: pointer;
 }
 input {
