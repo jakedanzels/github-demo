@@ -93,7 +93,7 @@ export default {
                 } else {
                     await this.$store.dispatch('signup', actionPayload);
                 }
-                this.$router.replace('/home');
+                this.$router.replace('/random');
             } catch (err) {
                 this.error = err.message || 'Failed to authenticate...';
             }
@@ -124,7 +124,7 @@ export default {
         async guestLogin() {
             try{
                 await this.$store.dispatch('guestLogin');
-                this.$router.replace('/home');
+                this.$router.replace('/random');
             } catch (err) {
                 this.error = err.message || 'Guest Login Error';
             }

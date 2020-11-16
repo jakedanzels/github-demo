@@ -61,7 +61,7 @@ h1 {
   margin-left: 70px;
 }
 h3 {
-  margin-left: 75px;
+  text-align: center;
 }
 
 h1:hover {

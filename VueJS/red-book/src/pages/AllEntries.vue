@@ -1,16 +1,17 @@
 <template>
 <base-card>
   <div class="all-entries">
-    <h1><span class="red">All</span> Entries</h1>
+    <h1><span class="red">{{((search || selectedPerson) && selectedPerson != 'All') ? 'Filtered' : 'All'}}</span> Entries ({{entries.length}})</h1>
     <ul>
       <li v-for="person in people" 
+      class="person"
       :key="person" 
       :class="{ 'active': person === selectedPerson }"
       @click="selectedPerson = person">
         <a class="link-person">{{person}}</a>
       </li>
     </ul>
-    <input id="search" name="search" type="text" placeholder="Search" v-model="search"/>
+    <input id="search" name="search" type="text" placeholder="Search" v-model.trim="search"/>
    <ul>
      <li v-for="(entry,x) in entries" :key="x">
        <entry :entry="entry.entry"></entry>
@@ -47,6 +48,7 @@ export default {
         var query = this.search || this.selectedPerson;
         query = query.toLowerCase();
         var items = this.$store.getters.allEntries;
+        if(this.selectedPerson === 'All') return items;
         var results = [];
         for(let i = 0; i < items.length; i++) {
           if(items[i].entry.scene) {
@@ -72,12 +74,20 @@ export default {
         var items = this.$store.getters.allEntries;
         var results = [];
         var person = '';
+        results.push('All');
         for(let i = 0; i < items.length; i++) {  
           for(let j = 0; j < items[i].entry.lines.length; j++){
             person = this.toTitleCase(items[i].entry.lines[j].who).trim();
+            // todo control these exclusions with an array changable by admins in the app itself
             if( person.length === 0 || 
                 person.includes('(') || 
+                person.includes(`'`) ||
                 person === 'Ray Newton' ||
+                person === 'Server' ||
+                person === 'Waiter' ||
+                person === 'Customer' ||
+                person === 'Waitress' ||
+                person === 'Quizmaster' ||
                 person === 'Manager') continue;
                 //now just the first name
                 person = person.split(' ')[0];
@@ -115,9 +125,14 @@ ul {
   list-style-type: none;
   padding-left: 6px;
 }
+
+.person {
+  display: inline-block;
+}
+
 li {
     padding-left: 10px;
-    display: inline-block;
+    display: inline;
     cursor: pointer;
 }
 input {
